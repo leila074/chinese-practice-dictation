@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Bài tập nghe viết chính tả tiếng Trung - HSK1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 760px;
+      margin: 30px auto;
+      padding: 20px;
+      line-height: 1.6;
+      background: #f8f8f8;
+      color: #222;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .instruction {
+      background: #fff3cd;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .question {
+      background: white;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      margin-top: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .answer {
+      display: none;
+      margin-top: 8px;
+      color: #0a7a3d;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>听写练习 - HSK1</h1>
+
+  <div class="instruction">
+    <strong>Cách làm:</strong><br>
+    1. Bấm nút “Nghe câu”.<br>
+    2. Viết lại câu bằng Hán tự vào ô trống.<br>
+    3. Bấm “Xem đáp án” để tự kiểm tra.
+  </div>
+
+  <div class="question">
+    <strong>Câu 1</strong><br>
+    <button onclick="speak('你现在在哪儿？')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a1')">Xem đáp án</button>
+    <div class="answer" id="a1">你现在在哪儿？</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 2</strong><br>
+    <button onclick="speak('我现在在学校。')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a2')">Xem đáp án</button>
+    <div class="answer" id="a2">我现在在学校。</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 3</strong><br>
+    <button onclick="speak('你明天有时间吗？')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a3')">Xem đáp án</button>
+    <div class="answer" id="a3">你明天有时间吗？</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 4</strong><br>
+    <button onclick="speak('明天我去书店看书。')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a4')">Xem đáp án</button>
+    <div class="answer" id="a4">明天我去书店看书。</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 5</strong><br>
+    <button onclick="speak('中国银行在超市东边。')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a5')">Xem đáp án</button>
+    <div class="answer" id="a5">中国银行在超市东边。</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 6</strong><br>
+    <button onclick="speak('今天是星期几？')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a6')">Xem đáp án</button>
+    <div class="answer" id="a6">今天是星期几？</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 7</strong><br>
+    <button onclick="speak('今天是八月八号。')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a7')">Xem đáp án</button>
+    <div class="answer" id="a7">今天是八月八号。</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 8</strong><br>
+    <button onclick="speak('你几号去上海？')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a8')">Xem đáp án</button>
+    <div class="answer" id="a8">你几号去上海？</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 9</strong><br>
+    <button onclick="speak('我十号去上海，十三号回北京。')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a9')">Xem đáp án</button>
+    <div class="answer" id="a9">我十号去上海，十三号回北京。</div>
+  </div>
+
+  <div class="question">
+    <strong>Câu 10</strong><br>
+    <button onclick="speak('七点半我们一起吃饭，怎么样？')">Nghe câu</button>
+    <input type="text" placeholder="Viết Hán tự ở đây...">
+    <button onclick="toggleAnswer('a10')">Xem đáp án</button>
+    <div class="answer" id="a10">七点半我们一起吃饭，怎么样？</div>
+  </div>
+
+  <script>
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-CN';
+      utterance.rate = 0.75;
+      speechSynthesis.speak(utterance);
+    }
+
+    function toggleAnswer(id) {
+      const answer = document.getElementById(id);
+      answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+
+</body>
+</html>
