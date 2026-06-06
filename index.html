@@ -1,167 +1,268 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Bài tập nghe viết chính tả tiếng Trung - HSK1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSK1 听写练习</title>
+
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      max-width: 760px;
+      background: #f4f1ec;
+      color: #2b2b2b;
+    }
+
+    .container {
+      max-width: 850px;
       margin: 30px auto;
       padding: 20px;
-      line-height: 1.6;
-      background: #f8f8f8;
-      color: #222;
     }
 
-    h1 {
-      text-align: center;
-      color: #333;
+    .header {
+      background: linear-gradient(135deg, #7b2d26, #c96b4b);
+      color: white;
+      padding: 28px;
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
 
-    .instruction {
-      background: #fff3cd;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+    .header h1 {
+      margin: 0;
+      font-size: 30px;
     }
 
-    .question {
+    .header p {
+      margin: 8px 0 0;
+      opacity: 0.9;
+    }
+
+    .card {
       background: white;
-      padding: 15px;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
+      margin-top: 18px;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    .question-title {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      font-size: 18px;
-      margin-top: 8px;
+      padding: 13px;
+      font-size: 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
       box-sizing: border-box;
+      margin: 10px 0;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #c96b4b;
     }
 
     button {
-      margin-top: 8px;
-      padding: 8px 12px;
+      border: none;
+      padding: 10px 14px;
+      margin: 4px 4px 4px 0;
+      border-radius: 10px;
       cursor: pointer;
+      font-weight: bold;
+    }
+
+    .listen {
+      background: #2f4858;
+      color: white;
+    }
+
+    .check {
+      background: #7b2d26;
+      color: white;
+    }
+
+    .show {
+      background: #e8d8c3;
+      color: #2b2b2b;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .correct {
+      color: #128a45;
+      font-weight: bold;
+    }
+
+    .wrong {
+      color: #d62828;
+      font-weight: bold;
     }
 
     .answer {
       display: none;
+      background: #f8f1e8;
+      padding: 10px;
+      border-radius: 10px;
       margin-top: 8px;
-      color: #0a7a3d;
-      font-weight: bold;
-      font-size: 18px;
+      font-size: 20px;
+    }
+
+    .char-ok {
+      background: #d8f3dc;
+      padding: 2px 4px;
+      border-radius: 5px;
+      margin-right: 2px;
+    }
+
+    .char-wrong {
+      background: #ffd6d6;
+      color: #b00020;
+      padding: 2px 4px;
+      border-radius: 5px;
+      margin-right: 2px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #777;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
+  <div class="container">
 
-  <h1>听写练习 - HSK1</h1>
+    <div class="header">
+      <h1>听写练习 · HSK1</h1>
+      <p>Nghe câu tiếng Trung, viết lại bằng Hán tự, rồi bấm kiểm tra.</p>
+    </div>
 
-  <div class="instruction">
-    <strong>Cách làm:</strong><br>
-    1. Bấm nút “Nghe câu”.<br>
-    2. Viết lại câu bằng Hán tự vào ô trống.<br>
-    3. Bấm “Xem đáp án” để tự kiểm tra.
-  </div>
+    <div id="exercise"></div>
 
-  <div class="question">
-    <strong>Câu 1</strong><br>
-    <button onclick="speak('你现在在哪儿？')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a1')">Xem đáp án</button>
-    <div class="answer" id="a1">你现在在哪儿？</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 2</strong><br>
-    <button onclick="speak('我现在在学校。')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a2')">Xem đáp án</button>
-    <div class="answer" id="a2">我现在在学校。</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 3</strong><br>
-    <button onclick="speak('你明天有时间吗？')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a3')">Xem đáp án</button>
-    <div class="answer" id="a3">你明天有时间吗？</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 4</strong><br>
-    <button onclick="speak('明天我去书店看书。')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a4')">Xem đáp án</button>
-    <div class="answer" id="a4">明天我去书店看书。</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 5</strong><br>
-    <button onclick="speak('中国银行在超市东边。')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a5')">Xem đáp án</button>
-    <div class="answer" id="a5">中国银行在超市东边。</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 6</strong><br>
-    <button onclick="speak('今天是星期几？')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a6')">Xem đáp án</button>
-    <div class="answer" id="a6">今天是星期几？</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 7</strong><br>
-    <button onclick="speak('今天是八月八号。')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a7')">Xem đáp án</button>
-    <div class="answer" id="a7">今天是八月八号。</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 8</strong><br>
-    <button onclick="speak('你几号去上海？')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a8')">Xem đáp án</button>
-    <div class="answer" id="a8">你几号去上海？</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 9</strong><br>
-    <button onclick="speak('我十号去上海，十三号回北京。')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a9')">Xem đáp án</button>
-    <div class="answer" id="a9">我十号去上海，十三号回北京。</div>
-  </div>
-
-  <div class="question">
-    <strong>Câu 10</strong><br>
-    <button onclick="speak('七点半我们一起吃饭，怎么样？')">Nghe câu</button>
-    <input type="text" placeholder="Viết Hán tự ở đây...">
-    <button onclick="toggleAnswer('a10')">Xem đáp án</button>
-    <div class="answer" id="a10">七点半我们一起吃饭，怎么样？</div>
+    <div class="footer">
+      Tip: viết cả dấu câu cũng được, nhưng hệ thống sẽ bỏ qua dấu câu khi chấm.
+    </div>
   </div>
 
   <script>
-    function speak(text) {
+    const questions = [
+      "你现在在哪儿？",
+      "我现在在学校。",
+      "你明天有时间吗？",
+      "明天我去书店看书。",
+      "中国银行在超市东边。",
+      "今天是星期几？",
+      "今天是八月八号。",
+      "你几号去上海？",
+      "我十号去上海，十三号回北京。",
+      "七点半我们一起吃饭，怎么样？"
+    ];
+
+    const exercise = document.getElementById("exercise");
+
+    questions.forEach((sentence, index) => {
+      exercise.innerHTML += `
+        <div class="card">
+          <div class="question-title">Câu ${index + 1}</div>
+
+          <button class="listen" onclick="speak('${sentence}')">🔊 Nghe câu</button>
+          <button class="listen" onclick="speakSlow('${sentence}')">🐢 Nghe chậm</button>
+
+          <input id="input-${index}" type="text" placeholder="Nhập Hán tự ở đây..." />
+
+          <button class="check" onclick="checkAnswer(${index})">Kiểm tra</button>
+          <button class="show" onclick="toggleAnswer(${index})">Xem đáp án</button>
+
+          <div class="result" id="result-${index}"></div>
+          <div class="answer" id="answer-${index}">${sentence}</div>
+        </div>
+      `;
+    });
+
+    function speak(text, rate = 0.8) {
+      speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'zh-CN';
-      utterance.rate = 0.75;
+      utterance.lang = "zh-CN";
+      utterance.rate = rate;
       speechSynthesis.speak(utterance);
     }
 
-    function toggleAnswer(id) {
-      const answer = document.getElementById(id);
-      answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+    function speakSlow(text) {
+      speak(text, 0.55);
+    }
+
+    function cleanText(text) {
+      return text
+        .replace(/[，。？！,.?!\s]/g, "")
+        .trim();
+    }
+
+    function checkAnswer(index) {
+      const userRaw = document.getElementById(`input-${index}`).value;
+      const answerRaw = questions[index];
+
+      const user = cleanText(userRaw);
+      const answer = cleanText(answerRaw);
+
+      const result = document.getElementById(`result-${index}`);
+
+      if (!user) {
+        result.innerHTML = `<span class="wrong">Bạn chưa nhập đáp án.</span>`;
+        return;
+      }
+
+      if (user === answer) {
+        result.innerHTML = `<span class="correct">✅ Đúng rồi!</span>`;
+        return;
+      }
+
+      let html = `<div class="wrong">❌ Chưa đúng. So sánh từng chữ:</div>`;
+      html += `<div><strong>Bạn viết:</strong> `;
+
+      const maxLength = Math.max(user.length, answer.length);
+
+      for (let i = 0; i < maxLength; i++) {
+        const userChar = user[i] || "∅";
+        const answerChar = answer[i] || "∅";
+
+        if (userChar === answerChar) {
+          html += `<span class="char-ok">${userChar}</span>`;
+        } else {
+          html += `<span class="char-wrong">${userChar}</span>`;
+        }
+      }
+
+      html += `</div><div><strong>Đáp án:</strong> `;
+
+      for (let i = 0; i < maxLength; i++) {
+        const userChar = user[i] || "∅";
+        const answerChar = answer[i] || "∅";
+
+        if (userChar === answerChar) {
+          html += `<span class="char-ok">${answerChar}</span>`;
+        } else {
+          html += `<span class="char-wrong">${answerChar}</span>`;
+        }
+      }
+
+      html += `</div>`;
+      result.innerHTML = html;
+    }
+
+    function toggleAnswer(index) {
+      const answer = document.getElementById(`answer-${index}`);
+      answer.style.display = answer.style.display === "block" ? "none" : "block";
     }
   </script>
-
 </body>
 </html>
