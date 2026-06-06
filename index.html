@@ -3,138 +3,256 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HSK1 听写练习</title>
+  <title>Chinese Dictation Practice</title>
 
   <style>
+    :root {
+      --primary: #3D8361;
+      --primary-light: #5BA890;
+      --secondary: #4F8FBF;
+
+      --background-1: #EDF7F3;
+      --background-2: #F8FCFD;
+      --paper: #FFFFFF;
+
+      --ink: #2C3E35;
+      --muted: #6B7C73;
+
+      --green: #2E7D32;
+      --wrong: #D64545;
+
+      --border: #DDEAE3;
+      --soft-green: #DDF4EA;
+      --soft-blue: #DDEFFC;
+      --soft-neutral: #EEF5F2;
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f4f1ec;
-      color: #2b2b2b;
+      background: linear-gradient(180deg, var(--background-1), var(--background-2));
+      color: var(--ink);
     }
 
     .container {
-      max-width: 850px;
-      margin: 30px auto;
-      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
     }
 
-    .header {
-      background: linear-gradient(135deg, #7b2d26, #c96b4b);
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       padding: 28px;
-      border-radius: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(45, 95, 75, 0.18);
+      margin-bottom: 20px;
     }
 
-    .header h1 {
+    .hero h1 {
       margin: 0;
-      font-size: 30px;
+      font-size: 32px;
     }
 
-    .header p {
+    .hero p {
       margin: 8px 0 0;
+      opacity: 0.92;
+    }
+
+    .version {
+      margin-top: 14px;
+      font-size: 14px;
       opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .toolbar {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 18px;
+      margin-bottom: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 18px rgba(45, 95, 75, 0.06);
+    }
+
+    .toolbar-text {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .section-label {
+      margin: 22px 0 10px;
+      font-weight: bold;
+      font-size: 20px;
+      color: var(--primary);
     }
 
     .card {
-      background: white;
-      margin-top: 18px;
+      background: var(--paper);
+      border: 1px solid var(--border);
       padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 14px;
+      border-radius: 18px;
+      box-shadow: 0 8px 22px rgba(45, 95, 75, 0.07);
+    }
+
+    .new-card {
+      border-left: 6px solid var(--primary-light);
+    }
+
+    .review-card {
+      border-left: 6px solid var(--secondary);
+    }
+
+    .question-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
     }
 
     .question-title {
       font-weight: bold;
       font-size: 18px;
-      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-size: 12px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .tag-new {
+      background: var(--soft-green);
+      color: #2E6F52;
+    }
+
+    .tag-review {
+      background: var(--soft-blue);
+      color: #3A6EA5;
     }
 
     input {
       width: 100%;
-      padding: 13px;
-      font-size: 20px;
-      border: 2px solid #ddd;
-      border-radius: 10px;
-      box-sizing: border-box;
+      padding: 14px;
+      font-size: 21px;
+      border: 2px solid var(--border);
+      border-radius: 12px;
       margin: 10px 0;
+      background: white;
+      color: var(--ink);
     }
 
     input:focus {
       outline: none;
-      border-color: #c96b4b;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(91, 168, 144, 0.16);
     }
 
     button {
       border: none;
       padding: 10px 14px;
       margin: 4px 4px 4px 0;
-      border-radius: 10px;
+      border-radius: 11px;
       cursor: pointer;
       font-weight: bold;
+      font-size: 14px;
     }
 
-    .listen {
-      background: #2f4858;
+    .primary {
+      background: var(--primary);
       color: white;
     }
 
-    .check {
-      background: #7b2d26;
+    .primary:hover {
+      background: #327052;
+    }
+
+    .dark {
+      background: var(--secondary);
       color: white;
     }
 
-    .show {
-      background: #e8d8c3;
-      color: #2b2b2b;
+    .dark:hover {
+      background: #3F7FAE;
+    }
+
+    .soft {
+      background: var(--soft-neutral);
+      color: var(--ink);
+    }
+
+    .soft:hover {
+      background: #E2EFE9;
     }
 
     .result {
       margin-top: 10px;
-      font-size: 18px;
-      line-height: 1.8;
+      line-height: 1.9;
+      font-size: 17px;
     }
 
     .correct {
-      color: #128a45;
+      color: var(--green);
       font-weight: bold;
     }
 
     .wrong {
-      color: #d62828;
+      color: var(--wrong);
       font-weight: bold;
     }
 
     .answer {
       display: none;
-      background: #f8f1e8;
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 8px;
-      font-size: 20px;
+      margin-top: 10px;
+      background: var(--soft-neutral);
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 21px;
+      line-height: 1.7;
     }
 
     .char-ok {
-      background: #d8f3dc;
-      padding: 2px 4px;
-      border-radius: 5px;
+      background: #D8F3DC;
+      padding: 2px 5px;
+      border-radius: 6px;
       margin-right: 2px;
     }
 
     .char-wrong {
-      background: #ffd6d6;
-      color: #b00020;
-      padding: 2px 4px;
-      border-radius: 5px;
+      background: #FFD6D6;
+      color: #B00020;
+      padding: 2px 5px;
+      border-radius: 6px;
       margin-right: 2px;
+    }
+
+    .score {
+      font-weight: bold;
+      color: var(--primary);
     }
 
     .footer {
       text-align: center;
-      margin-top: 20px;
-      color: #777;
-      font-size: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 22px 0;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 14px; }
+      .hero h1 { font-size: 26px; }
+      input { font-size: 19px; }
     }
   </style>
 </head>
@@ -142,79 +260,162 @@
 <body>
   <div class="container">
 
-    <div class="header">
-      <h1>听写练习 · HSK1</h1>
-      <p>Nghe câu tiếng Trung, viết lại bằng Hán tự, rồi bấm kiểm tra.</p>
-    </div>
+    <section class="hero">
+      <h1>听写练习 · Chinese Dictation</h1>
+      <p>10 câu bài mới nhất + 10 câu review từ bài cũ.</p>
+      <div class="version">
+        Version: 2026-06-07<br>
+        Level: HSK1 Beginner<br>
+        Mode: 10 New Lesson + 10 Review Mix
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div class="toolbar-text">
+        Câu 1-10 luyện bài mới nhất. Câu 11-20 random lại từ nội dung cũ.
+      </div>
+      <div>
+        <button class="primary" onclick="loadPractice()">🔄 Random lại</button>
+        <button class="soft" onclick="showAllAnswers()">👀 Hiện tất cả đáp án</button>
+        <button class="soft" onclick="hideAllAnswers()">🙈 Ẩn đáp án</button>
+      </div>
+    </section>
 
     <div id="exercise"></div>
 
     <div class="footer">
-      Tip: viết cả dấu câu cũng được, nhưng hệ thống sẽ bỏ qua dấu câu khi chấm.
+      Tip: nếu web chưa hiện bản mới sau khi commit, mở link với ?v=2 hoặc Ctrl + Shift + R.
     </div>
   </div>
 
   <script>
-    const questions = [
-      "你现在在哪儿？",
-      "我现在在学校。",
-      "你明天有时间吗？",
-      "明天我去书店看书。",
-      "中国银行在超市东边。",
-      "今天是星期几？",
-      "今天是八月八号。",
-      "你几号去上海？",
-      "我十号去上海，十三号回北京。",
-      "七点半我们一起吃饭，怎么样？"
+    const newQuestions = [
+      { level: "HSK1", lesson: "New Lesson", sentence: "你现在在哪儿？" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "我现在在学校。" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "你明天有时间吗？" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "明天我去书店看书。" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "中国银行在超市东边。" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "今天是星期几？" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "今天是八月八号。" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "你几号去上海？" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "我十号去上海，十三号回北京。" },
+      { level: "HSK1", lesson: "New Lesson", sentence: "七点半我们一起吃饭，怎么样？" }
     ];
 
-    const exercise = document.getElementById("exercise");
+    const reviewQuestions = [
+      { level: "HSK1", lesson: "Daily", sentence: "我每天都吃饭。" },
+      { level: "HSK1", lesson: "Daily", sentence: "每天我都工作。" },
+      { level: "HSK1", lesson: "Question", sentence: "你有什么事？" },
+      { level: "HSK1", lesson: "Answer", sentence: "我没有时间。" },
+      { level: "HSK1", lesson: "Birthday", sentence: "祝你生日快乐。" },
+      { level: "HSK1", lesson: "Birthday", sentence: "我的生日是四月七号。" },
+      { level: "HSK1", lesson: "People", sentence: "他们是我的同学。" },
+      { level: "HSK1", lesson: "Place", sentence: "卫生间在哪儿？" },
+      { level: "HSK1", lesson: "Place", sentence: "书店在饭店东边。" },
+      { level: "HSK1", lesson: "Shopping", sentence: "这家商店有汉语书吗？" },
+      { level: "HSK1", lesson: "Action", sentence: "我去超市买东西。" },
+      { level: "HSK1", lesson: "Action", sentence: "我们一起学汉语。" },
+      { level: "HSK1", lesson: "Food", sentence: "今天我请老师吃饭。" },
+      { level: "HSK1", lesson: "Food", sentence: "我们去吃饭，怎么样？" },
+      { level: "HSK1", lesson: "Time", sentence: "现在七点半。" },
+      { level: "HSK1", lesson: "Time", sentence: "现在九点二十五分。" },
+      { level: "HSK1", lesson: "Time", sentence: "现在八点零五分。" },
+      { level: "HSK1", lesson: "Date", sentence: "明天星期六，你去学校吗？" },
+      { level: "HSK1", lesson: "Question", sentence: "老师，我有一个问题。" },
+      { level: "HSK1", lesson: "Answer", sentence: "没问题。" }
+    ];
 
-    questions.forEach((sentence, index) => {
-      exercise.innerHTML += `
-        <div class="card">
-          <div class="question-title">Câu ${index + 1}</div>
+    let currentQuestions = [];
 
-          <button class="listen" onclick="speak('${sentence}')">🔊 Nghe câu</button>
-          <button class="listen" onclick="speakSlow('${sentence}')">🐢 Nghe chậm</button>
+    function shuffle(array) {
+      return [...array].sort(() => Math.random() - 0.5);
+    }
+
+    function loadPractice() {
+      const selectedNew = newQuestions.slice(0, 10).map(q => ({
+        ...q,
+        type: "New Lesson"
+      }));
+
+      const selectedReview = shuffle(reviewQuestions).slice(0, 10).map(q => ({
+        ...q,
+        type: "Review Mix"
+      }));
+
+      currentQuestions = [...selectedNew, ...selectedReview];
+
+      const exercise = document.getElementById("exercise");
+      exercise.innerHTML = "";
+
+      currentQuestions.forEach((item, index) => {
+        if (index === 0) {
+          exercise.innerHTML += `<div class="section-label">Part 1 · New Lesson</div>`;
+        }
+
+        if (index === 10) {
+          exercise.innerHTML += `<div class="section-label">Part 2 · Review Mix</div>`;
+        }
+
+        const isNew = item.type === "New Lesson";
+        const cardClass = isNew ? "card new-card" : "card review-card";
+        const tagClass = isNew ? "tag tag-new" : "tag tag-review";
+
+        const card = document.createElement("div");
+        card.className = cardClass;
+
+        card.innerHTML = `
+          <div class="question-head">
+            <div class="question-title">Câu ${index + 1}</div>
+            <div class="${tagClass}">${item.type} · ${item.lesson}</div>
+          </div>
+
+          <button class="dark" onclick="speak(${index}, 0.8)">🔊 Nghe câu</button>
+          <button class="dark" onclick="speak(${index}, 0.55)">🐢 Nghe chậm</button>
 
           <input id="input-${index}" type="text" placeholder="Nhập Hán tự ở đây..." />
 
-          <button class="check" onclick="checkAnswer(${index})">Kiểm tra</button>
-          <button class="show" onclick="toggleAnswer(${index})">Xem đáp án</button>
+          <button class="primary" onclick="checkAnswer(${index})">Kiểm tra</button>
+          <button class="soft" onclick="toggleAnswer(${index})">Xem đáp án</button>
 
           <div class="result" id="result-${index}"></div>
-          <div class="answer" id="answer-${index}">${sentence}</div>
-        </div>
-      `;
-    });
+          <div class="answer" id="answer-${index}">${item.sentence}</div>
+        `;
 
-    function speak(text, rate = 0.8) {
+        exercise.appendChild(card);
+      });
+    }
+
+    function speak(index, rate) {
+      const text = currentQuestions[index].sentence;
+
+      if (!("speechSynthesis" in window)) {
+        alert("Trình duyệt này không hỗ trợ đọc câu.");
+        return;
+      }
+
       speechSynthesis.cancel();
+
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = "zh-CN";
       utterance.rate = rate;
-      speechSynthesis.speak(utterance);
-    }
+      utterance.pitch = 1;
+      utterance.volume = 1;
 
-    function speakSlow(text) {
-      speak(text, 0.55);
+      speechSynthesis.speak(utterance);
     }
 
     function cleanText(text) {
       return text
-        .replace(/[，。？！,.?!\s]/g, "")
+        .replace(/[，。？！,.?!、；;：“”"'\s]/g, "")
         .trim();
     }
 
     function checkAnswer(index) {
-      const userRaw = document.getElementById(`input-${index}`).value;
-      const answerRaw = questions[index];
-
-      const user = cleanText(userRaw);
-      const answer = cleanText(answerRaw);
-
+      const input = document.getElementById(`input-${index}`);
       const result = document.getElementById(`result-${index}`);
+
+      const user = cleanText(input.value);
+      const answer = cleanText(currentQuestions[index].sentence);
 
       if (!user) {
         result.innerHTML = `<span class="wrong">Bạn chưa nhập đáp án.</span>`;
@@ -226,43 +427,53 @@
         return;
       }
 
-      let html = `<div class="wrong">❌ Chưa đúng. So sánh từng chữ:</div>`;
-      html += `<div><strong>Bạn viết:</strong> `;
-
+      let correctCount = 0;
       const maxLength = Math.max(user.length, answer.length);
 
-      for (let i = 0; i < maxLength; i++) {
-        const userChar = user[i] || "∅";
-        const answerChar = answer[i] || "∅";
-
-        if (userChar === answerChar) {
-          html += `<span class="char-ok">${userChar}</span>`;
-        } else {
-          html += `<span class="char-wrong">${userChar}</span>`;
-        }
-      }
-
-      html += `</div><div><strong>Đáp án:</strong> `;
+      let userHtml = "";
+      let answerHtml = "";
 
       for (let i = 0; i < maxLength; i++) {
         const userChar = user[i] || "∅";
         const answerChar = answer[i] || "∅";
 
         if (userChar === answerChar) {
-          html += `<span class="char-ok">${answerChar}</span>`;
+          correctCount++;
+          userHtml += `<span class="char-ok">${userChar}</span>`;
+          answerHtml += `<span class="char-ok">${answerChar}</span>`;
         } else {
-          html += `<span class="char-wrong">${answerChar}</span>`;
+          userHtml += `<span class="char-wrong">${userChar}</span>`;
+          answerHtml += `<span class="char-wrong">${answerChar}</span>`;
         }
       }
 
-      html += `</div>`;
-      result.innerHTML = html;
+      const score = Math.round((correctCount / answer.length) * 100);
+
+      result.innerHTML = `
+        <div class="wrong">❌ Chưa đúng. Điểm gần đúng: <span class="score">${score}%</span></div>
+        <div><strong>Bạn viết:</strong> ${userHtml}</div>
+        <div><strong>Đáp án:</strong> ${answerHtml}</div>
+      `;
     }
 
     function toggleAnswer(index) {
       const answer = document.getElementById(`answer-${index}`);
       answer.style.display = answer.style.display === "block" ? "none" : "block";
     }
+
+    function showAllAnswers() {
+      document.querySelectorAll(".answer").forEach(answer => {
+        answer.style.display = "block";
+      });
+    }
+
+    function hideAllAnswers() {
+      document.querySelectorAll(".answer").forEach(answer => {
+        answer.style.display = "none";
+      });
+    }
+
+    loadPractice();
   </script>
 </body>
 </html>
